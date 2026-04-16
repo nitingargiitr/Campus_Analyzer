@@ -7,14 +7,3 @@ __pycache__/
 venv/
 env/
 
-# data/raw/
-# data/processed/
-# data/*.db
-# data/*.sqlite
-# data/*.sqlite3
-
-*.csv
-*.parquet
-
-.DS_Store
-Thumbs.db

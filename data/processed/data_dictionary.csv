@@ -1,0 +1,10 @@
+table,column,meaning,units
+electricity_usage,ts,timestamp (UTC ISO),n/a
+electricity_usage,building_id,building identifier,n/a
+electricity_usage,kwh,energy consumption in kWh per hour,kWh
+electricity_usage,peak_kw,approx peak demand in kW,kW
+wifi_usage,connected_devices,count of connected devices,devices
+wifi_usage,throughput_mb,throughput proxy per hour,MB
+mess_footfall,entries,people entries per hour,people
+mess_footfall,estimated_wait_min,estimated wait time,minutes
+attendance_logs,present,1 if present else 0,binary

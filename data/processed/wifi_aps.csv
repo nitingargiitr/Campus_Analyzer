@@ -1,0 +1,14 @@
+ap_id,building_id,ap_name
+AP_B01_01,B01,LHC_AP_Primary
+AP_B01_02,B01,LHC_AP_Secondary
+AP_B02_01,B02,MAC_Building_AP_Primary
+AP_B02_02,B02,MAC_Building_AP_Secondary
+AP_B03_01,B03,Computer_Science_Dept_AP_Primary
+AP_B03_02,B03,Computer_Science_Dept_AP_Secondary
+AP_B04_01,B04,Mahendra_Bhawan_Library_AP_Primary
+AP_B04_02,B04,Mahendra_Bhawan_Library_AP_Secondary
+AP_B05_01,B05,Rajendra_Bhawan_AP_Primary
+AP_B06_01,B06,Sarojini_Bhawan_AP_Primary
+AP_B07_01,B07,Ganga_Bhawan_AP_Primary
+AP_B08_01,B08,Mechanical_Dept_AP_Primary
+AP_B08_02,B08,Mechanical_Dept_AP_Secondary

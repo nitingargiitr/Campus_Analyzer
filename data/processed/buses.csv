@@ -1,0 +1,4 @@
+bus_id,route,capacity
+Bus_01,Main_Gate_to_LHC,40
+Bus_02,Hostel_Area_to_MAC,40
+Bus_03,Hostel_Area_to_Library,40

@@ -1,0 +1,9 @@
+building_id,building_name,building_type
+B01,LHC,academic
+B02,MAC_Building,academic
+B03,Computer_Science_Dept,academic
+B04,Mahendra_Bhawan_Library,library
+B05,Rajendra_Bhawan,residential
+B06,Sarojini_Bhawan,residential
+B07,Ganga_Bhawan,residential
+B08,Mechanical_Dept,academic
