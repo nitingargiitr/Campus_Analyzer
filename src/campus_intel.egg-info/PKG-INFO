@@ -1,0 +1,5 @@
+Metadata-Version: 2.4
+Name: campus-intel
+Version: 0.1.0
+Summary: Smart Campus Intelligence System (Python + SQL + Tableau)
+Requires-Python: >=3.10
