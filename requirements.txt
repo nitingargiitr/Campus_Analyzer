@@ -10,3 +10,4 @@ streamlit
 plotly
 python-dotenv
 groq
+statsmodels
