@@ -238,6 +238,7 @@ def auto_load_data():
         paths = get_paths(root_dir)
         
         if not paths.db_path.exists():
+            st.session_state["load_error"] = f"Database not found at: {paths.db_path}"
             return # Let the pages handle the missing data gracefully or show error later
 
         conn = connect_sqlite(paths.db_path)

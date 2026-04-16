@@ -48,7 +48,8 @@ data_loaded = all([k in st.session_state for k in required_datasets])
 
 if not data_loaded:
     page_header("", "Data Initialization", "Connecting to campus telemetry...")
-    st.info("The simulation database is being initialized. If this takes too long, please ensure you have run the data pipeline.")
+    err_msg = st.session_state.get("load_error", "The simulation database is being initialized.")
+    st.info(f"{err_msg}. If this persists, please ensure you have pushed `data/campus.db` to GitHub.")
     st.stop()
 
 

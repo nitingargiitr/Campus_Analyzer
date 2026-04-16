@@ -1,0 +1,53 @@
+{
+  "generated_from": "D:\\mid_prep\\data\\raw",
+  "reports": [
+    {
+      "duplicates_dropped": 11,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 11474,
+      "rows_out": 11463,
+      "table": "electricity_usage"
+    },
+    {
+      "duplicates_dropped": 18,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 18645,
+      "rows_out": 18627,
+      "table": "wifi_usage"
+    },
+    {
+      "duplicates_dropped": 4,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 4303,
+      "rows_out": 4299,
+      "table": "mess_footfall"
+    },
+    {
+      "duplicates_dropped": 0,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 9723,
+      "rows_out": 9723,
+      "table": "attendance_logs"
+    },
+    {
+      "duplicates_dropped": 1,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 1434,
+      "rows_out": 1433,
+      "table": "library_occupancy"
+    },
+    {
+      "duplicates_dropped": 4,
+      "invalid_ids_dropped": 0,
+      "missing_imputed": 0,
+      "rows_in": 4303,
+      "rows_out": 4299,
+      "table": "shuttle_transport"
+    }
+  ]
+}
