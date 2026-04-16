@@ -4,7 +4,9 @@ scikit-learn
 python-dateutil
 pyyaml
 sqlalchemy
-
+dotenv
 # Optional demo app (nice UI, not required for Tableau)
 streamlit
 plotly
+python-dotenv
+groq
