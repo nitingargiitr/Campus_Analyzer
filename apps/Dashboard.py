@@ -15,9 +15,19 @@ load_dotenv(root_dir / ".env")
 from campus_intel.config import get_paths
 from campus_intel.db import connect_sqlite
 from campus_intel.recommend import generate_groq_insights
+
+# Use standard multiline import
 from apps.utils import (
-    inject_css, page_header, section_header, kpi_card,
-    make_daily_line, make_bar, COST_PER_KWH, CO2_PER_KWH, insight_card, alert_card,
+    inject_css, 
+    page_header, 
+    section_header, 
+    kpi_card,
+    make_daily_line, 
+    make_bar, 
+    COST_PER_KWH, 
+    CO2_PER_KWH, 
+    insight_card, 
+    alert_card,
     auto_load_data
 )
 
