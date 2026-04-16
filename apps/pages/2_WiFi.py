@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 load_dotenv(root_dir / ".env")
 
 import pandas as pd
@@ -49,7 +50,7 @@ c1, c2, c3, c4 = st.columns(4)
 with c1: kpi_card("Avg Connected Devices", f"{df['connected_devices'].mean():.0f}", "", "")
 with c2: kpi_card("Busiest Hour (Devices)", f"{df['connected_devices'].max()} devices", "", "")
 with c3: kpi_card("Avg Network Delay", f"{df['network_delay'].mean():.1f} ms", "", "")
-with c4: kpi_card("Avg Signal Drops", f"{df['connection_drops'].mean():.2f}%", "", "", df['connection_drops'].mean()<2.0)
+with c4: kpi_card("Avg Signal Drops", f"{df['connection_drops'].mean():.2f}%", "", "", delta_good=df['connection_drops'].mean()<2.0)
 st.markdown("---")
 
 t1, t2, t3, t4 = st.tabs([" Charts", " Benefits & Savings", " Smart Tips", " Test Changes"])
@@ -112,7 +113,7 @@ with t4:
         new_lat = base_lat * (1 + (user_growth/50)**2) * (1 - min(0.8, bw_upgrade*0.1))
         
         c_p1, c_p2 = st.columns(2)
-        with c_p1: kpi_card("Predicted Latency", f"{new_lat:.1f} ms", f"{int(new_lat - base_lat)} ms change", "", new_lat <= base_lat)
+        with c_p1: kpi_card("Predicted Latency", f"{new_lat:.1f} ms", f"{int(new_lat - base_lat)} ms change", "", delta_good=(new_lat <= base_lat))
         with c_p2:
             alert_msg = "Critical Degradation Expected!" if new_lat > 100 else "Network Stable."
             alert_card(alert_msg, "danger" if new_lat > 100 else "success")

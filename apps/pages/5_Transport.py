@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 load_dotenv(root_dir / ".env")
 
 import pandas as pd
@@ -111,7 +112,7 @@ with t4:
         new_del = max(0.0, new_del)
         
         c_p1, c_p2 = st.columns(2)
-        with c_p1: kpi_card("Predicted Avg Delay", f"{new_del:.1f} m", f"{new_del-base_del:.1f} m shift", "", new_del <= base_del)
+        with c_p1: kpi_card("Predicted Avg Delay", f"{new_del:.1f} m", f"{new_del-base_del:.1f} m shift", "", delta_good=new_del <= base_del)
         with c_p2: alert_card("Traffic threshold crossed." if new_del > 15 else "Flow is optimal.", "danger" if new_del>15 else "success")
         
         st.plotly_chart(px.bar(pd.DataFrame({"State":["Current Baseline", "Forecasted Result"], "Delay":[base_del, new_del]}), x="State", y="Delay", color="State", color_discrete_sequence=["#4fc3f7","#ef5350" if new_del>base_del else "#66bb6a"]), width='stretch')

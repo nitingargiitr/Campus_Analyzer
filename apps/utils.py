@@ -221,13 +221,61 @@ def alert_card(msg: str, kind: str = "info"):
         <span style="color:#c9d1d9;font-size:0.9rem;">{msg}</span>
     </div>""", unsafe_allow_html=True)
 
+def auto_load_data():
+    """Automatically loads simulation data from SQLite into session state."""
+    # Marking that we've attempted to load to avoid infinite loops on fatal errors
+    if "data_load_attempted" in st.session_state and st.session_state["data_load_attempted"]:
+        return
+    
+    st.session_state["data_load_attempted"] = True
+    
+    try:
+        from campus_intel.config import get_paths
+        from campus_intel.db import connect_sqlite
+        
+        # Calculate root_dir based on apps/ location
+        root_dir = Path(__file__).resolve().parents[1]
+        paths = get_paths(root_dir)
+        
+        if not paths.db_path.exists():
+            return # Let the pages handle the missing data gracefully or show error later
+
+        conn = connect_sqlite(paths.db_path)
+        
+        datasets = {
+            "dataset_electricity": "SELECT eu.*, b.building_name, b.building_type FROM electricity_usage eu LEFT JOIN buildings b USING(building_id)",
+            "dataset_mess": "SELECT * FROM mess_footfall",
+            "dataset_transport": "SELECT * FROM shuttle_transport",
+            "dataset_wifi": "SELECT wu.*, a.building_id, b.building_name FROM wifi_usage wu LEFT JOIN wifi_aps a USING(ap_id) LEFT JOIN buildings b USING(building_id)",
+            "dataset_library": "SELECT * FROM library_occupancy"
+        }
+        
+        for key, query in datasets.items():
+            if key not in st.session_state:
+                df = pd.read_sql_query(query, conn)
+                if not df.empty:
+                    df["ts"] = pd.to_datetime(df["ts"], utc=True)
+                st.session_state[key] = df
+        
+        conn.close()
+        st.session_state["data_loaded"] = True
+        
+    except Exception as e:
+        # Silent fail or log - we don't want to crash the whole UI if one import fails
+        pass
+
 def check_data_loaded(domain_key: str):
+    """Checks if data is loaded, and if not, attempts an auto-load."""
+    if domain_key not in st.session_state:
+        auto_load_data()
+        
+    # If still not loaded after attempt, show error
     if domain_key not in st.session_state:
         st.markdown(f"""
         <div style="background:#161b22;border:1px solid #30363d;border-left:4px solid #ef5350;border-radius:8px;padding:30px;text-align:center;margin-top:20px;">
-            <h2 style="color:#e6edf3;margin-top:0;">{domain_key.split('_')[-1].title()} Data Not Uploaded</h2>
-            <p style="color:#8b949e;font-size:1.0rem;">The dataset required for this analytical view has not been mapped into the system.</p>
-            <p style="color:#c9d1d9;margin-bottom:0;">Please navigate to the <b>Dashboard (Initialization)</b> page to dynamically structure your raw CSV.</p>
+            <h2 style="color:#e6edf3;margin-top:0;">{domain_key.split('_')[-1].title()} Data Unavailable</h2>
+            <p style="color:#8b949e;font-size:1.0rem;">The simulation database could not be found or loaded automatically.</p>
+            <p style="color:#c9d1d9;margin-bottom:0;">Please ensure you have run the simulation pipeline: <code>python scripts/run_pipeline.py</code></p>
         </div>
         """, unsafe_allow_html=True)
         st.stop()

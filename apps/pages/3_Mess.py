@@ -6,6 +6,7 @@ import pandas as pd
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 load_dotenv(root_dir / ".env")
 
 import pandas as pd
@@ -122,8 +123,8 @@ with t4:
         new_peak= peak_wait * (1 - (stagger_pct/100)) / (1 + (capacity_inc*0.1))
         
         c_p1, c_p2 = st.columns(2)
-        with c_p1: kpi_card("Predicted Avg Wait", f"{new_avg:.1f} m", f"{(new_avg-base_wait):.1f} min", "", new_avg<base_wait)
-        with c_p2: kpi_card("Predicted Peak Wait", f"{new_peak:.1f} m", f"{(new_peak-peak_wait):.1f} min", "", new_peak<peak_wait)
+        with c_p1: kpi_card("Predicted Avg Wait", f"{new_avg:.1f} m", f"{(new_avg-base_wait):.1f} min", "", delta_good=new_avg<base_wait)
+        with c_p2: kpi_card("Predicted Peak Wait", f"{new_peak:.1f} m", f"{(new_peak-peak_wait):.1f} min", "", delta_good=new_peak<peak_wait)
         
         chart_df = pd.DataFrame({"Metric":["Avg", "Avg", "Peak", "Peak"], "Val":[base_wait, new_avg, peak_wait, new_peak], "Type":["Baseline","Predicted","Baseline","Predicted"]})
         st.plotly_chart(px.bar(chart_df, x="Metric", y="Val", color="Type", barmode="group", color_discrete_sequence=["#ef5350","#4fc3f7"]), width='stretch')

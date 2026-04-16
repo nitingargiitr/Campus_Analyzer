@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 load_dotenv(root_dir / ".env")
 
 import pandas as pd
@@ -127,8 +128,8 @@ with t4:
         savings_rs = savings_kwh * COST_PER_KWH
         
         c_p1, c_p2 = st.columns(2)
-        with c1: kpi_card("Predicted Energy", f"{new_total:,.0f} kWh", f"{'↗' if savings_kwh<0 else '↘'} {abs(savings_kwh):,.0f} kWh shift", "", True)
-        with c2: kpi_card("Bill Variance", f"₹ {savings_rs:,.0f}", "Net change in electricity bill", "", savings_rs > 0)
+        with c_p1: kpi_card("Predicted Energy", f"{new_total:,.0f} kWh", f"{'↗' if savings_kwh<0 else '↘'} {abs(savings_kwh):,.0f} kWh shift", "", delta_good=True)
+        with c_p2: kpi_card("Bill Variance", f"₹ {savings_rs:,.0f}", "Net change in electricity bill", "", delta_good=(savings_rs > 0))
         
         chart_df = pd.DataFrame({
             "Source": ["Current Cooling", "Predicted Cooling", "Current Sockets", "Predicted Sockets"],

@@ -8,6 +8,7 @@ from pathlib import Path
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 
 from apps.utils import (
     inject_css, page_header, section_header, alert_card, check_data_loaded, COST_PER_KWH

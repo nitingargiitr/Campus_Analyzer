@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 root_dir = Path(__file__).resolve().parents[2]
 sys.path.append(str(root_dir))
+sys.path.append(str(root_dir / "src"))
 load_dotenv(root_dir / ".env")
 
 import pandas as pd
@@ -111,7 +112,7 @@ with t4:
         new_total = new_quiet + new_collab
         
         c_p1, c_p2 = st.columns(2)
-        with c_p1: kpi_card("Predicted Base Load", f"{new_total:.0f} seats", f"{'+' if new_total>base_total else ''}{new_total-base_total:.0f}", "", new_total<=800)
+        with c_p1: kpi_card("Predicted Base Load", f"{new_total:.0f} seats", f"{'+' if new_total>base_total else ''}{new_total-base_total:.0f}", "", delta_good=new_total<=800)
         with c_p2:
             alert_card(f"Max library capacity is 900. {'Warning! Capacity Breach.' if new_total > 850 else 'Safe Capacity.'}", "danger" if new_total>850 else "success")
         
